@@ -1,40 +1,12 @@
 <template>
   <div id="app">
-    <EventTiles />
-    <a href="#/events">siema</a>
-
+    <nav>
+      <router-link to="/">Events</router-link> |
+      <router-link to="/about">About</router-link>
+    </nav>
+    <router-view/>
   </div>
 </template>
-
-<script>
-import EventTiles from './components/EventTiles.vue'
-import VenueMap from './VenueMap.vue'
-const routes = [
-  {path: "/events", component: VenueMap}
-]
-export default {
-  name: 'App',
-  components: {
-    EventTiles,
-  },
-  data() {
-    return {
-      currentPath: window.location.hash
-    }
-  },
-  computed: {
-    currentView() {
-      return routes[this.currentPath.slice(1) || '/']
-    }
-  },
-mounted() {
-    window.addEventListener('hashchange', () => {
-      this.currentPath = window.location.hash
-		})
-  }
-
-}
-</script>
 
 <style>
 #app {
@@ -43,6 +15,18 @@ mounted() {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>

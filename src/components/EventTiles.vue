@@ -1,7 +1,7 @@
 <template>
   <div>
       <div v-for="(event, index) in events" :key="index">
-        {{event}}
+        <router-link :to="'/event/' + event.id">{{event.name}}</router-link>
       </div>
   </div>
 </template>

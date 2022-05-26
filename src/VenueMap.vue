@@ -10,9 +10,12 @@
     {{tutu.sectors.filter((sector) => sector.columnInVenue == 0 && sector.rowInVenue == 0)[0]}}
 
     {{tutu.sectors}} -->
-    {{chosenTickets}}
-
-    <div class="mapwrap">
+    <!-- {{chosenTickets}} -->
+    <div v-if="errored">
+      <h3>EVENT NOT FOUND</h3>
+    </div>
+    <div class="mapwrap" v-if="!errored">
+      <h2>{{venueData.artist}} - {{venueData.name}} </h2>
       <div>
         <div class="sector_row" v-for="rown in maxRows+1" :key="rown">
           <div class= "sector_column" v-for="coln in tutu.sectors.filter(sector => sector.rowInVenue == rown-1).map(sector=> sector.columnInVenue).slice(-1)[0]+1" :key="coln">
@@ -47,6 +50,8 @@ export default {
     maxCols: null,
     tickets: null,
     rawResponse: null,
+    venueData: null,
+    errored: false,
     chosenTickets: []
 	}
   },
@@ -54,9 +59,18 @@ export default {
 	// fetch("http://localhost:9000/api/v1/venue/full/6")
 	// .then(response => response.json())
 	// .then(data => {this.tutu = data; this.maxRows = Math.max(...data.sectors.map((sector) =>  sector.rowInVenue)); this.maxCols =Math.max(...data.sectors.map((sector) =>  sector.columnInVenue)); });
-    fetch("http://localhost:9000/api/v1/event/venue/371")
-    .then(response => response.json())
-    .then(data => {this.tickets = data.tickets.map(ticket => ({...ticket, chosen: false})); this.tutu = data.venue; this.maxRows = Math.max(...data.venue.sectors.map((sector) =>  sector.rowInVenue)); this.maxCols =Math.max(...data.venue.sectors.map((sector) =>  sector.columnInVenue));})
+    fetch(`http://localhost:9000/api/v1/event/venue/${this.$route.params.id}`)
+    .then(response =>{
+      if(response.ok){
+      return response.json()
+      }
+      throw new Error();
+  })
+    .then(data => {this.venueData= data; this.tickets = data.tickets.map(ticket => ({...ticket, chosen: false})); this.tutu = data.venue; this.maxRows = Math.max(...data.venue.sectors.map((sector) =>  sector.rowInVenue)); this.maxCols =Math.max(...data.venue.sectors.map((sector) =>  sector.columnInVenue))
+    ;})
+    .catch(() =>
+      this.errored = true
+    )
   },
   methods: {
     async reserveSeat (seatId){
@@ -77,7 +91,7 @@ export default {
        await fetch(`http://localhost:9000/api/v1/ticket/buy/${this.chosenTickets[i]}?ticketType=FULL`, {
         method: 'POST'})
       }
-      await fetch(`http://localhost:9000/api/v1/ticket?eventId=371`)
+      await fetch(`http://localhost:9000/api/v1/ticket?eventId=${this.$route.params.id}`)
       .then(response => response.json())
       .then(data => this.tickets = data.map(ticket => ({...ticket, chosen: false})))
       this.chosenTickets = []
