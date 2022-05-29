@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VenueMap from '../VenueMap.vue'
 import EventTiles from '../components/EventTiles.vue'
+import VenuesComponent from '../components/VenuesComponent.vue'
+import EventsComponent from '../components/EventsComponent.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +25,16 @@ const routes = [
     path: '/event/:id',
     name: 'map',
     component: VenueMap
+  },
+  {
+    path: '/venues',
+    name: 'venues',
+    component: VenuesComponent
+  },
+  {
+    path: '/events',
+    name: 'events-management',
+    component: EventsComponent
   }
 ]
 

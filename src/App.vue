@@ -1,6 +1,8 @@
 <template>
   <div id="app">
     <nav>
+      <router-link to="/venues">Venues</router-link> |
+      <router-link to="/events">Events Management</router-link> |
       <router-link to="/">Events</router-link> |
       <router-link to="/about">About</router-link>
     </nav>
