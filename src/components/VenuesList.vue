@@ -44,7 +44,9 @@ export default {
     
     async getVenues(){
       try{
-        const response = await fetch('http://localhost:9000/api/v1/venue/all')
+        const response = await fetch('http://localhost:9000/api/v1/venue/all', {headers: {
+          'Authorization': 'Bearer ' + this.$store.state.auth.user.token
+        }})
         let data = await response.json()
         this.venues = data.map(venue => {
            return {...venue, actions: venue.id}
@@ -58,7 +60,8 @@ export default {
       let data = evenue
       evenue.id = evenue.actions
 			let request = new Request(`http://localhost:9000/api/v1/venue`,
-				{method: 'PUT', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json; charset=UTF8'})})
+				{method: 'PUT', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
+        'Authorization': 'Bearer ' + this.$store.state.auth.user.token},)})
 			
 			fetch(request)
 				.then(() => {
@@ -73,7 +76,8 @@ export default {
     async postVenue(pvenue){
       let data = pvenue
       let request = new Request('http://localhost:9000/api/v1/venue',
-				{method: 'POST', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json; charset=UTF8'})})
+				{method: 'POST', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
+        'Authorization': 'Bearer ' + this.$store.state.auth.user.token})})
 			
 			fetch(request)
 				.then(() => {
