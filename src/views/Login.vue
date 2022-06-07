@@ -68,7 +68,7 @@ export default {
   },
   created() {
     if (this.loggedIn) {
-      this.$router.go('/venues').catch(() => {});
+      this.$router.push('/venues').catch(() => {});
     }
   },
   methods: {
@@ -84,7 +84,7 @@ export default {
           this.$store.dispatch('auth/login', this.user).then(
             () => {
               console.log('pushing');
-              this.$router.go('/venues').catch(() => {});
+              this.$router.push('/venues').catch(() => {});
             },
             error => {
               this.loading = false;

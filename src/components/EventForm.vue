@@ -89,6 +89,8 @@
 
 
 <script>
+import authHeader from '../services/auth-header.js'
+
 export default {
 	data(){
 		return {
@@ -128,7 +130,10 @@ export default {
 		},
 	},
     created() {
-        fetch("http://localhost:9000/api/v1/venue/all")
+		let request = new Request(`http://localhost:9000/api/v1/venue/all`,
+				{method: 'GET', headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
+        ...authHeader()},)})
+        fetch(request)
         .then(response => response.json())
         .then(data => this.venues = data.map(venue => ({value: venue.id, text: venue.name})))
     },

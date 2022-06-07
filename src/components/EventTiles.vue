@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import authHeader from '@/services/auth-header'
+
 export default {
   name: 'EventTiles',
   data() {
@@ -15,7 +17,10 @@ export default {
     }
   },
   created() {
-    fetch("http://localhost:9000/api/v1/event/all")
+    let request = new Request(`http://localhost:9000/api/v1/event/all`,
+				{method: 'GET', headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
+        ...authHeader()},)})
+    fetch(request)
     .then(response => response.json())
     .then(data => this.events = data)
   },

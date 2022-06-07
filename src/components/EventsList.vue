@@ -19,6 +19,7 @@
 <script>
 import ActionButtons from './ActionButtons.vue'
 import EventForm from './EventForm.vue'
+import authHeader from '../services/auth-header.js'
 export default {
   data(){
     return {
@@ -44,7 +45,10 @@ export default {
     
     async getEvents(){
       try{
-        const response = await fetch('http://localhost:9000/api/v1/event/all')
+        let request = new Request(`http://localhost:9000/api/v1/event/all`,
+				{method: 'GET', headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
+        ...authHeader()},)})
+        const response = await fetch(request)
         let data = await response.json()
         this.events = data.map(event => {
            return {...event, actions: event.id}
@@ -63,7 +67,8 @@ export default {
       }
       console.log(eevent)
         let request = new Request(`http://localhost:9000/api/v1/event`,
-            {method: 'PUT', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json; charset=UTF8'})})
+            {method: 'PUT', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
+            ...authHeader()})})
         
         fetch(request)
             .then(() => {
@@ -79,7 +84,7 @@ export default {
       let data = pevent
       pevent.date = pevent.date + 'T' + pevent.time + '.000Z'
       let request = new Request('http://localhost:9000/api/v1/event',
-				{method: 'POST', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json; charset=UTF8'})})
+				{method: 'POST', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json; charset=UTF8', ...authHeader()})})
 			
 			fetch(request)
 				.then(() => {

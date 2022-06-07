@@ -63,6 +63,7 @@
 
 <script>
 import TicketModel from './components/Ticket.vue'
+import authHeader from './services/auth-header'
 export default {
   name: 'VenueMap',
   data () {
@@ -89,7 +90,10 @@ export default {
 	// fetch("http://localhost:9000/api/v1/venue/full/6")
 	// .then(response => response.json())
 	// .then(data => {this.tutu = data; this.maxRows = Math.max(...data.sectors.map((sector) =>  sector.rowInVenue)); this.maxCols =Math.max(...data.sectors.map((sector) =>  sector.columnInVenue)); });
-    fetch(`http://localhost:9000/api/v1/event/venue/${this.$route.params.id}`)
+  let request = new Request(`http://localhost:9000/api/v1/event/venue/${this.$route.params.id}`,
+				{method: 'GET', headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
+        ...authHeader()},)})
+    fetch(request)
     .then(response =>{
       if(response.ok){
       return response.json()
@@ -126,10 +130,15 @@ export default {
 
     async buyTickets(){
       for (const i in this.chosenTickets){
-       await fetch(`http://localhost:9000/api/v1/ticket/buy/${this.chosenTickets[i].id}?ticketType=${this.chosenTickets[i].type}`, {
-        method: 'POST'})
+        let request = new Request(`http://localhost:9000/api/v1/ticket/buy/${this.chosenTickets[i].id}?ticketType=${this.chosenTickets[i].type}`,
+				{method: 'POST', headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
+        ...authHeader()},)})
+       await fetch(request)
       }
-      await fetch(`http://localhost:9000/api/v1/ticket/full?eventId=${this.$route.params.id}`)
+      let request = new Request(`http://localhost:9000/api/v1/ticket/full?eventId=${this.$route.params.id}`,
+				{method: 'GET', headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
+        ...authHeader()},)})
+      await fetch(request)
       .then(response => response.json())
       .then(data => this.tickets = data.map(ticket => ({...ticket, chosen: false})))
       this.chosenTickets = []
