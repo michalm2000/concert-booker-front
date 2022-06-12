@@ -5,7 +5,7 @@
       <b-table striped hover :items="getVenuesTable" :fields = "fields">
         <template #cell(actions)="data">
           <col class="actions-column">
-          <action-buttons @load:venues="getVenues()"  @load:editForm="showEditForm(data.value)" :id=data.value></action-buttons>
+          <action-buttons @load:venues="getVenues()"  @load:editForm="showEditForm(data.value)" :id=data.value entityName="venue"></action-buttons>
         </template>
       </b-table>
       <b-button @click="showAddForm()" variant="success">Add new venue</b-button>
