@@ -15,7 +15,7 @@ export default {
     }
   },
   created() {
-    fetch("http://localhost:9000/api/v1/event/all")
+    fetch("http://localhost:9090/api/v1/event/all")
     .then(response => response.json())
     .then(data => this.events = data)
   },

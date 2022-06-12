@@ -128,7 +128,7 @@ export default {
 		},
 	},
     created() {
-        fetch("http://localhost:9000/api/v1/venue/all")
+        fetch("http://localhost:9090/api/v1/venue/all")
         .then(response => response.json())
         .then(data => this.venues = data.map(venue => ({value: venue.id, text: venue.name})))
     },

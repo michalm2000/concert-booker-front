@@ -86,10 +86,10 @@ export default {
     TicketModel,
   },
   created() {
-	// fetch("http://localhost:9000/api/v1/venue/full/6")
+	// fetch("http://localhost:9090/api/v1/venue/full/6")
 	// .then(response => response.json())
 	// .then(data => {this.tutu = data; this.maxRows = Math.max(...data.sectors.map((sector) =>  sector.rowInVenue)); this.maxCols =Math.max(...data.sectors.map((sector) =>  sector.columnInVenue)); });
-    fetch(`http://localhost:9000/api/v1/event/venue/${this.$route.params.id}`)
+    fetch(`http://localhost:9090/api/v1/event/venue/${this.$route.params.id}`)
     .then(response =>{
       if(response.ok){
       return response.json()
@@ -126,10 +126,10 @@ export default {
 
     async buyTickets(){
       for (const i in this.chosenTickets){
-       await fetch(`http://localhost:9000/api/v1/ticket/buy/${this.chosenTickets[i].id}?ticketType=${this.chosenTickets[i].type}`, {
+       await fetch(`http://localhost:9090/api/v1/ticket/buy/${this.chosenTickets[i].id}?ticketType=${this.chosenTickets[i].type}`, {
         method: 'POST'})
       }
-      await fetch(`http://localhost:9000/api/v1/ticket/full?eventId=${this.$route.params.id}`)
+      await fetch(`http://localhost:9090/api/v1/ticket/full?eventId=${this.$route.params.id}`)
       .then(response => response.json())
       .then(data => this.tickets = data.map(ticket => ({...ticket, chosen: false})))
       this.chosenTickets = []
