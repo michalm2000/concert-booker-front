@@ -87,10 +87,10 @@ export default {
     TicketModel,
   },
   created() {
-	// fetch("http://localhost:9000/api/v1/venue/full/6")
+	// fetch("http://localhost:9090/api/v1/venue/full/6")
 	// .then(response => response.json())
 	// .then(data => {this.tutu = data; this.maxRows = Math.max(...data.sectors.map((sector) =>  sector.rowInVenue)); this.maxCols =Math.max(...data.sectors.map((sector) =>  sector.columnInVenue)); });
-  let request = new Request(`http://localhost:9000/api/v1/event/venue/${this.$route.params.id}`,
+  let request = new Request(`http://localhost:9090/api/v1/event/venue/${this.$route.params.id}`,
 				{method: 'GET', headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
         ...authHeader()},)})
     fetch(request)
@@ -130,12 +130,12 @@ export default {
 
     async buyTickets(){
       for (const i in this.chosenTickets){
-        let request = new Request(`http://localhost:9000/api/v1/ticket/buy/${this.chosenTickets[i].id}?ticketType=${this.chosenTickets[i].type}`,
+        let request = new Request(`http://localhost:9090/api/v1/ticket/buy/${this.chosenTickets[i].id}?ticketType=${this.chosenTickets[i].type}`,
 				{method: 'POST', headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
         ...authHeader()},)})
        await fetch(request)
       }
-      let request = new Request(`http://localhost:9000/api/v1/ticket/full?eventId=${this.$route.params.id}`,
+      let request = new Request(`http://localhost:9090/api/v1/ticket/full?eventId=${this.$route.params.id}`,
 				{method: 'GET', headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
         ...authHeader()},)})
       await fetch(request)

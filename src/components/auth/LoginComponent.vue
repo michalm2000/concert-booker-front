@@ -9,7 +9,7 @@
     name: "LoginComponent",
     methods: {
       login() {
-        window.location.href = "http://localhost:9000/login";
+        window.location.href = "http://localhost:9090/login";
       }
     }
   }

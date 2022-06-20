@@ -12,7 +12,7 @@ export default{
     },
     methods: {
 		async deleteBook(id){
-			let request = new Request(`http://localhost:9000/api/v1/venue/${id}`,
+			let request = new Request(`http://localhost:9090/api/v1/venue/${id}`,
 						{method: 'DELETE', headers: new Headers({'Content-Type': 'application/json; charset=UTF8'})})
 			fetch(request)
 				.then(() => {

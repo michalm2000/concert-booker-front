@@ -45,7 +45,7 @@ export default {
     
     async getVenues(){
       try{
-        const response = await fetch('http://localhost:9000/api/v1/venue/all', {headers: authHeader()})
+        const response = await fetch('http://localhost:9090/api/v1/venue/all', {headers: authHeader()})
         let data = await response.json()
         this.venues = data.map(venue => {
            return {...venue, actions: venue.id}
@@ -58,7 +58,7 @@ export default {
     async editVenue(evenue){
       let data = evenue
       evenue.id = evenue.actions
-			let request = new Request(`http://localhost:9000/api/v1/venue`,
+			let request = new Request(`http://localhost:9090/api/v1/venue`,
 				{method: 'PUT', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
         ...authHeader()},)})
 			
@@ -74,7 +74,7 @@ export default {
 
     async postVenue(pvenue){
       let data = pvenue
-      let request = new Request('http://localhost:9000/api/v1/venue',
+      let request = new Request('http://localhost:9090/api/v1/venue',
 				{method: 'POST', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
         ...authHeader()})})
 			

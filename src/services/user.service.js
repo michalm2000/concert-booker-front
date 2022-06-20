@@ -1,6 +1,6 @@
 // import axios from 'axios';
 // import authHeader from './auth-header';
-// const API_URL = 'http://localhost:9000/api/v1/';
+// const API_URL = 'http://localhost:9090/api/v1/';
 class UserService {
 //     getVenuesContent() {
 //         return axios.get(API_URL + 'venue/all', { headers: authHeader()});

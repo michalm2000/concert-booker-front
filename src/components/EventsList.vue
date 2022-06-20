@@ -45,7 +45,7 @@ export default {
     
     async getEvents(){
       try{
-        let request = new Request(`http://localhost:9000/api/v1/event/all`,
+        let request = new Request(`http://localhost:9090/api/v1/event/all`,
 				{method: 'GET', headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
         ...authHeader()},)})
         const response = await fetch(request)
@@ -66,7 +66,7 @@ export default {
           eevent.date = eevent.date.substring(0, 10) + 'T' + eevent.time + '.000Z'
       }
       console.log(eevent)
-        let request = new Request(`http://localhost:9000/api/v1/event`,
+        let request = new Request(`http://localhost:9090/api/v1/event`,
             {method: 'PUT', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
             ...authHeader()})})
         
@@ -83,7 +83,7 @@ export default {
     async postEvent(pevent){
       let data = pevent
       pevent.date = pevent.date + 'T' + pevent.time + '.000Z'
-      let request = new Request('http://localhost:9000/api/v1/event',
+      let request = new Request('http://localhost:9090/api/v1/event',
 				{method: 'POST', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json; charset=UTF8', ...authHeader()})})
 			
 			fetch(request)

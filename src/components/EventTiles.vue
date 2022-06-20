@@ -17,7 +17,7 @@ export default {
     }
   },
   created() {
-    let request = new Request(`http://localhost:9000/api/v1/event/all`,
+    let request = new Request(`http://localhost:9090/api/v1/event/all`,
 				{method: 'GET', headers: new Headers({'Content-Type': 'application/json; charset=UTF8',
         ...authHeader()},)})
     fetch(request)
