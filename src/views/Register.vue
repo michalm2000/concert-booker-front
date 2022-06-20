@@ -52,6 +52,7 @@
           </div>
           <div class="form-group">
             <button class="btn btn-primary btn-block">Sign Up</button>
+            <p>Not new here? <router-link to="/login">Sign in!</router-link></p>
           </div>
         </div>
       </form>
@@ -59,7 +60,8 @@
         v-if="message"
         class="alert"
         :class="successful ? 'alert-success' : 'alert-danger'"
-      >{{message}}</div>
+      >{{message}}
+      <router-link to="/login">Sign In</router-link></div>
     </div>
   </div>
 </template>

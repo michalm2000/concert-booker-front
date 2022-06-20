@@ -42,6 +42,7 @@
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
             <span>Login</span>
           </button>
+          <p>New here? <router-link to="/register">Register now!</router-link></p>
         </div>
         <div class="form-group">
           <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>

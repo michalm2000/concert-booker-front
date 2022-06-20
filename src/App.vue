@@ -1,14 +1,32 @@
 <template>
   <div id="app">
-    <nav>
+    <nav v-if="loggedIn">
       <router-link to="/venues">Venues</router-link> |
       <router-link to="/events">Events Management</router-link> |
       <router-link to="/">Events</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> |
+      <button @click="logout()">Logout</button>
     </nav>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    }
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem('user');
+      this.$router.go(0);
+    }
+  }
+}
+</script>
 
 <style>
 #app {
